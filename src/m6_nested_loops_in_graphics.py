@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Jonah Yates.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -48,7 +48,7 @@ def run_test_draw_L():
     blue_circle = starting_circle.clone()
     blue_circle.fill_color = 'blue'
 
-    window.continue_on_mouse_click('Click to run Test 2.')
+    #window.continue_on_mouse_click('Click to run Test 2.')
     draw_L(window, blue_circle, 6, 15)
 
     window.close_on_mouse_click()
@@ -80,9 +80,33 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    change = 2 * circle.radius
+    orig = circle
+    color = circle.fill_color
+
+    for k in range(r):
+        for j in range(3):
+            circle.move_center_to(circle.center.x + change, circle.center.y)
+            mary = circle.clone()
+            mary.fill_color = color
+            mary.attach_to(window)
+        circle.move_center_to(circle.center.x - 3 * change, circle.center.y + change)
+
+    circle.move_center_to(circle.center.x + 4 * change, circle.center.y - (4 * change))
+
+    for k in range(c - 3):
+        for j in range(3):
+            circle.move_center_to(circle.center.x, circle.center.y + change)
+            jane = circle.clone()
+            jane.fill_color = color
+            jane.attach_to(window)
+        circle.move_center_to(circle.center.x + change, circle.center.y - 3 * change)
+
+    window.render()
 
 
 def run_test_draw_wall_on_right():
@@ -121,9 +145,26 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
+
+    rectangle = rectangle.clone()
+    color = rectangle.fill_color
+    original = rectangle.clone()
+    rectangle.move_by(-1 * rectangle.get_width(), -1 * rectangle.get_height())
+
+    for k in range(n + 1):
+        for j in range(k):
+            rectangle.move_by(-1 * rectangle.get_width(), 0)
+            gwen = rectangle.clone()
+            gwen.fill_color = color
+            gwen.attach_to(window)
+        rectangle = original.clone()
+        rectangle.move_by(0, rectangle.get_height() * (1 + k))
+
+    window.render()
+
 
 
 # ----------------------------------------------------------------------
